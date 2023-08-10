@@ -1,0 +1,9 @@
+{% extends  'GGkala/base.html' %}
+
+
+{% block title %} صفحه دیتیل {% endblock %}
+
+{% block body %}
+    <div>{{ object.title }}</div>
+    {% include 'Products/review-template.html' %}
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends  'GGkala/base.html' %}
+{% load static %}
+{% load humanize %}
+{% load ratings %}
+{% load main_tags %}
+
+
+{% block title %} {{ cat.page_title }} | جی جی کالا {% endblock %}
+
+{% block css %}
+    {% static 'Category/css/sex_toys.css' %}
+{% endblock %}
+{% block add_css %}
+    <link rel="stylesheet" href="{% static 'Category/css/sex-toys-responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'GGkala/css/filter_list.css' %}">
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="product-page-all">
+
+        <div class="caption-margin">
+            <div class="caption-name"> اسباب بازی {{ cat.category_name }}</div>
+            <div class="caption">{{ cat.caption }}</div>
+        </div>
+
+        <div class="margin-product">
+            <div class="product-holder-all">
+                <div class="filter-list">
+                    {% include 'GGkala/filter_list.html' %}
+                </div>
+                <div class="product-season-holder">
+
+                    <div class="count-and-else">
+                        <div class="count-text-pr"> {% fa_number product_count %} محصول</div>
+                        <div style="position:relative;">
+                            <form action="" method="get">
+                                <label for="2" class="yekan-font">مرتب سازی:</label>
+                                <select onchange="this.form.submit()" class="sorted-by-select-tag" name="sorted-by" id="2">
+                                    <option {% if val == "popular" %} selected="selected" {% endif %} value="popular">محبوب ترین</option>
+                                    <option {% if val == "score" %} selected="selected" {% endif %} value="score">امتیاز بالا</option>
+                                    <option {% if val == "newst" %} selected="selected" {% endif %} value="newst">جدید ترین</option>
+                                    <option {% if val == "price-down" %} selected="selected" {% endif %} value="price-down">ارزان ترین</option>
+                                    <option {% if val == "price-up" %} selected="selected" {% endif %} value="price-up">گران ترین</option>
+                                </select>
+                                <img class="down-image" src="{% static 'Category/images/down.png' %}" alt="">
+
+                                {% for brand in brands %}
+                                    <input type="hidden" name="brand" value="{{ brand }}">
+                                {% endfor %}
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="item-holder">
+                        {% for i in object_list %}
+                            <div class="proudoct-holder">
+                                <a href="{% url 'Products:detail' i.slug %}" class="a-product">
+
+                                    <div class="proudoct_img">
+                                        {% if i.off and i.off != null %}
+                                            <div class="off-show">
+                                                <div class="off-text"> {{ i.off }}% تخفیف <img class="img-off-back" src="{% static 'Category/images/back.png' %}" alt=""></div>
+                                            </div>
+                                        {% endif %}
+                                        <img class="product_img_main" src="{{ i.photo.url }}" alt="">
+                                    </div>
+
+                                    <div class="product-specifications">
+
+                                        <div class="star-holder">
+                                            {% average_rate i.review.all %}
+                                            <div class="star-count">({{ i.review.count }})</div>
+                                        </div>
+
+                                        <div class="title-div">
+                                            <div class="title">{{ i.title }}</div>
+                                        </div>
+
+                                        <div class="price-holder">
+                                            {% if i.off %}
+                                                <div class="off-holder">
+                                                    <div class="toman-off-disabled">
+                                                        <div class="price-text" style="font-size: 17px;margin-left: 10px; text-decoration: line-through;">
+                                                            {{ i.price|intcomma:False }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="toman-off">
+                                                        <div class="price-text" style="color: #ff0000;">
+                                                            {{ i.discounted_price|intcomma:False }}
+                                                        </div>
+                                                        <img class="price-photo-toman" src="{% static 'Category/images/toman-red.png' %}" alt="">
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                <img class="price-photo-toman" src="{% static 'Category/images/toman.png' %}" alt="">
+                                                <div class="price-text">
+                                                    {{ i.price|intcomma:False }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="colors">
+
+                                            {% for color in i.color.all %}
+                                                {% if forloop.counter <= 3 %}
+                                                    <div class="just-for-hover">
+                                                        <div class="p-d-l">
+                                                            <div class="color" style="background-color:#{{ color.color_rgb }};"></div>
+                                                        </div>
+                                                    </div>
+                                                {% elif forloop.counter == 4 %}
+                                                    <img src="{% static 'Category/images/add.png' %}" class="color" style="border: none;" alt="">
+                                                {% endif %}
+
+                                            {% endfor %}
+
+                                        </div>
+
+                                    </div>
+                                </a>
+
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

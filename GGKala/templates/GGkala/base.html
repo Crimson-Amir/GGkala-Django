@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa-IR">
+<head>
+
+    <meta charset="UTF-8">
+    <title> {% block title %} {% endblock %} </title>
+    <link rel="stylesheet" href="{% block css %} {% endblock %}">
+    {% block add_css %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'GGkala/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'GGkala/css/header-responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'GGkala/css/message.css' %}">
+    <link rel="stylesheet" href="{% static 'review/css/review-style.css' %}">
+</head>
+<body>
+
+{% include 'GGkala/header.html' %}
+{% include 'GGkala/messages.html' %}
+{% block body %}{% endblock %}
+
+</body>
+</html>

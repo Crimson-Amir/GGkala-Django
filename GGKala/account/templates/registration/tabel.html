@@ -1,0 +1,69 @@
+{% extends 'registration/main.html' %}
+
+{% block title %}
+    {% block title_tabel_page %}
+        پنل ادمین
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+
+    {% block else_first %}
+
+    {% endblock %}
+
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-secondary text-center rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <a href="{% block add_link %}{% endblock %}" class="yekan">{% block add_text %}{% endblock %}</a>
+                <h6 class="mb-0 yekan">{% block table_title %}{% endblock %}</h6>
+            </div>
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                    <tr class="text-white">
+                        <th scope="col"><label>
+                            <input class="form-check-input" type="checkbox">
+                        </label></th>
+
+                        {% block coulm %}
+                            <th scope="col" class="yekan">ستون پنجم</th>
+                            <th scope="col" class="yekan">ستون چهارم</th>
+                            <th scope="col" class="yekan">ستون سوم</th>
+                            <th scope="col" class="yekan">ستون دوم</th>
+                            <th scope="col" class="yekan">ستون اول</th>
+                        {% endblock %}
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% block row %}
+                        {% for object in object_list %}
+                            <tr>
+
+                                <td><label>
+                                    <input class="form-check-input" type="checkbox">
+                                </label></td>
+
+                                <td class="yekan">عبارت پنجم</td>
+                                <td class="yekan">عبارت چهارم</td>
+                                <td class="yekan">عبارت سوم</td>
+                                <td class="yekan">عبارت دوم</td>
+                                <td class="yekan">عبارت اول</td>
+
+                            </tr>
+                        {% endfor %}
+                    {% endblock %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {% block else_last %}
+
+    {% endblock %}
+
+{% endblock %}

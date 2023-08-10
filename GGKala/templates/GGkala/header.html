@@ -1,0 +1,119 @@
+{% load static %}
+<div class="navbar_all">
+    <div class="search-logo-icon-holder">
+
+        <div class="icons">
+
+            <div class="user-holder">
+                <img class="user" src="{% static 'GGkala/images/profile.png' %}" alt="">
+
+                {% if user.is_anonymous %}
+                    <a href="{% url 'login' %}" class="text-user"><span> ورود | ثبت نام</span></a>
+                {% else %}
+                    <a href="{% url 'logout' %}" class="text-user"><span> {{ user.get_full_name|truncatechars:15 }} </span></a>
+                {% endif %}
+
+            </div>
+            <a href="#" class="icon m-l-10 p-t">
+                <img style="height: 23px;margin-top: 1px;" src="{% static 'GGkala/images/heart.png' %}" alt="">
+            </a>
+            <a href="#" class="icon m-l-10 p-t">
+                <img style="height: 23px;" src="{% static 'GGkala/images/shopping-bag.png' %}" alt="">
+            </a>
+
+        </div>
+
+        <div style="display: flex;align-items: center;">
+
+            <div class="logo-flex">
+                <a href="{% url 'Home:home' %}" style="text-decoration: none;">
+                    <div class="gg-kala-logo">
+                        <img class="logo_images" src="{% static 'GGkala/images/logo.png' %}" alt="">
+                    </div>
+                </a>
+            </div>
+
+            <div class="searc-holder">
+                <div class="search-button">
+                    <input alt="Submit" type="image" aria-label="#" class="search-img-input"
+                           src="{% static 'GGkala/images/search_white.png' %}">
+                </div>
+                <input aria-label="hello" placeholder="جستجو کنید ..." class="search">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="meno-holder">
+
+        <ul>
+            <li class="meno-li">
+                <a href="{% url "Category:sex_toys" %}" class="meno_style" style="font-weight: bold;">اسباب‌بازی های جنسی</a>
+            </li>
+
+            <li class="meno-li">
+                <a href="{% url "Category:sex_toys_slug" "vibrator" %}" class="meno_style">ویبراتور</a>
+            </li>
+
+            <li class="meno-li">
+                <a href="{% url "Category:sex_toys_slug" "dildo" %}" class="meno_style">دیلدو</a>
+            </li>
+
+            <li class="meno-li">
+                <a href="#" class="meno_style">برای مردها</a>
+            </li>
+
+            <li class="meno-li">
+                <a href="#" class="meno_style">بانداژ</a>
+            </li>
+
+            <li class="meno-li">
+                <a href="#" class="meno_style">روان‌کننده و روغن</a>
+            </li>
+
+            <li class="meno-li">
+                <a href="#" class="meno_style">لباس‌زیر</a>
+            </li>
+
+            <li class="meno-li">
+                <a href="#" class="meno_style">مشاوره</a>
+            </li>
+
+            <li class="meno-li">
+                <a href="#" class="meno_style" style="color: #ff0033;">سلامت‌جنسی</a>
+            </li>
+        </ul>
+
+        <a href="#" class="selecte-location-holder">
+            <img src="{% static 'GGkala/images/location.png' %}" class="selecte-location-img" alt="">
+            <div class="selecte-location-text">لطفا شهر خود را انتخاب کنید</div>
+        </a>
+
+    </div>
+
+
+</div>
+
+<div class="news">
+    <div id="slider">
+        <ul>
+            <li>
+                <div class="slider-container">
+                    <p>خرید اول، هیجان انگیز تر از همیشه با 30 درصد تخفیف!</p>
+                </div>
+            </li>
+            <li>
+                <div class="slider-container">
+                    <p>با خرید اولین ویبراتور، یک مکنده رایگان هدیه بگیرید!</p>
+                </div>
+            </li>
+            <li>
+                <div class="slider-container">
+                    <p>روز سکس مبارک! تخفیف ویژه برای بانداژ و لوازم زناشویی.</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+
+</div>

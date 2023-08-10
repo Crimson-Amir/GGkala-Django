@@ -1,0 +1,265 @@
+{% extends 'registration/main.html' %}
+{% load static %}
+
+{% block title %} داشبورد | پنل ادمین جی جی کالا {% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+            <div class="col-sm-6 col-xl-3">
+                <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                    <i class="fa fa-chart-line fa-3x text-primary"></i>
+                    <div class="ms-3">
+                        <p class="mb-2 yekan">فروش امروز</p>
+                        <h6 class="mb-0">300,000 T</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                    <i class="fa fa-chart-bar fa-3x text-primary"></i>
+                    <div class="ms-3">
+                        <p class="mb-2 yekan">فروش کلی</p>
+                        <h6 class="mb-0">22,220,000 T</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                    <i class="fa fa-chart-area fa-3x text-primary"></i>
+                    <div class="ms-3">
+                        <p class="mb-2 yekan">درآمد امروز</p>
+                        <h6 class="mb-0">200,000 T</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                    <i class="fa fa-chart-pie fa-3x text-primary"></i>
+                    <div class="ms-3">
+                        <p class="mb-2 yekan">درآمد کلی</p>
+                        <h6 class="mb-0">10,000,000 T</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Sale & Revenue End -->
+
+
+    <!-- Sales Chart Start -->
+    <div class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+            <div class="col-sm-12 col-xl-6">
+                <div class="bg-secondary text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <a href="#" class="yekan">مشاهده همه</a>
+                        <h6 class="mb-0 yekan">نمودار فروش شهر ها</h6>
+                    </div>
+                    <canvas id="worldwide-sales"></canvas>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xl-6">
+                <div class="bg-secondary text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <a href="#" class="yekan">مشاهده همه</a>
+                        <h6 class="mb-0  yekan">درآمد و فروش</h6>
+                    </div>
+                    <canvas id="salse-revenue"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Sales Chart End -->
+
+
+    <!-- Recent Sales Start -->
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-secondary text-center rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <a href="{% url 'account:products' %}" class="yekan">مشاهده همه</a>
+                <h6 class="mb-0 yekan">محصولات اخیر</h6>
+            </div>
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                    <tr class="text-white">
+                        <th scope="col"><label>
+                            <input class="form-check-input" type="checkbox">
+                        </label></th>
+                        <th scope="col" class="yekan">نام کالا</th>
+                        <th scope="col" class="yekan">منتشر کننده</th>
+                        <th scope="col" class="yekan">کتگوری کالا</th>
+                        <th scope="col" class="yekan">زمان انتشار</th>
+                        <th scope="col" class="yekan">برند</th>
+                        <th scope="col" class="yekan">جزئیات</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for object in object_list %}
+                        <tr>
+                            <td><label>
+                                <input class="form-check-input" type="checkbox">
+                            </label></td>
+                            <td class="yekan dir-rtl">{{ object.title|truncatechars:35 }}</td>
+                            <td>{{ object.publisher }}</td>
+                            <td class="yekan">{{ object.show_category|truncatechars:30 }}</td>
+                            <td>{{ object.created_short }}</td>
+                            <td>{{ object.brand }}</td>
+
+                            {% if object.publish == "published" %}
+                                <td><a class="btn btn-sm btn-primary yekan" href="#">منتشرشده</a></td>
+                            {% else %}
+                                <td><a class="btn btn-sm btn-success yekan" href="#">پیش نویس</a></td>
+                            {% endif %}
+
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {#    new users    #}
+
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-secondary text-center rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                {% if user.is_superuser %}
+                    <a href="{% url 'account:users' %}" class="yekan">مشاهده همه</a>
+                {% else %}
+                    <a class="yekan">مشاهده همه</a>
+                {% endif %}
+                <h6 class="mb-0 yekan">کاربران جدید</h6>
+            </div>
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                    <tr class="text-white">
+                        <th scope="col"><label>
+                            <input class="form-check-input" type="checkbox">
+                        </label></th>
+
+                        <th scope="col" class="yekan">ایمیل</th>
+                        <th scope="col" class="yekan">تاریخ ورود</th>
+                        <th scope="col" class="yekan">نام خانوادگی</th>
+                        <th scope="col" class="yekan">نام اول</th>
+                        <th scope="col" class="yekan">نام کاربری</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for object in new_user %}
+                        <tr>
+
+                            <td><label>
+                                <input class="form-check-input" type="checkbox">
+                            </label></td>
+
+                            <td class="dir-rtl">{{ object.email }}</td>
+                            <td class="dir-rtl">{{ object.data_joined.hour }}</td>
+                            <td class="yekan">{{ object.last_name }}</td>
+                            <td class="yekan">{{ object.first_name }}</td>
+                            <td class="dir-rtl"><a href="">{{ object.username }}</a></td>
+
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Recent Sales End -->
+
+
+    <!-- Widgets Start -->
+    <div class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+            <div class="col-sm-12 col-md-6 col-xl-4">
+                <div class="h-100 bg-secondary rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <a href="" class="yekan">مشاهده همه</a>
+                        <h6 class="mb-0 yekan">تقویم</h6>
+                    </div>
+                    <div id="calender"></div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-4">
+                <div class="h-100 bg-secondary rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <a href="" class="yekan">مشاهد همه</a>
+                        <h6 class="mb-0 yekan">لیست کارها</h6>
+                    </div>
+                    <div class="d-flex mb-2">
+                        <label>
+                            <input class="form-control bg-dark border-0" type="text" placeholder="Enter task">
+                        </label>
+                        <button type="button" class="btn btn-primary ms-2 yekan">اضافه</button>
+                    </div>
+                    <div class="d-flex align-items-center border-bottom py-2">
+                        <label>
+                            <input class="form-check-input m-0" type="checkbox">
+                        </label>
+                        <div class="w-100 ms-3">
+                            <div class="d-flex w-100 align-items-center justify-content-between">
+                                <span>Short task goes here...</span>
+                                <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center border-bottom py-2">
+                        <label>
+                            <input class="form-check-input m-0" type="checkbox">
+                        </label>
+                        <div class="w-100 ms-3">
+                            <div class="d-flex w-100 align-items-center justify-content-between">
+                                <span>Short task goes here...</span>
+                                <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center border-bottom py-2">
+                        <label>
+                            <input class="form-check-input m-0" type="checkbox" checked>
+                        </label>
+                        <div class="w-100 ms-3">
+                            <div class="d-flex w-100 align-items-center justify-content-between">
+                                <span><del>Short task goes here...</del></span>
+                                <button class="btn btn-sm text-primary"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center border-bottom py-2">
+                        <label>
+                            <input class="form-check-input m-0" type="checkbox">
+                        </label>
+                        <div class="w-100 ms-3">
+                            <div class="d-flex w-100 align-items-center justify-content-between">
+                                <span>Short task goes here...</span>
+                                <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center pt-2">
+                        <label>
+                            <input class="form-check-input m-0" type="checkbox">
+                        </label>
+                        <div class="w-100 ms-3">
+                            <div class="d-flex w-100 align-items-center justify-content-between">
+                                <span>Short task goes here...</span>
+                                <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

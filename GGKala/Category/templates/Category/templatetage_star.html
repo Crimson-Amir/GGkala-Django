@@ -1,0 +1,15 @@
+{% load main_tags %}
+
+{% if avg != 0 %}
+    <a href="#" data-filter-type="score" data-filter="{{ number }}" class="text-dec-none filter-link {% if number_str in toys_score %}selected{% endif %}">
+        <div class="{% if number_str in toys_score %}input-selected{% endif %} but_val pa-lowes">
+            <div class="no-back">
+                <div class="active-star">{% for foo in number_range %}★{% endfor %}</div>
+                <div class="diactive-star">{% for foo in diactiv_star %}★{% endfor %}</div>
+            </div>
+            <div class="score">
+                ({% fa_number avg %})
+            </div>
+        </div>
+    </a>
+{% endif %}

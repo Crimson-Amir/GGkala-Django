@@ -1,0 +1,13 @@
+@media only screen and (min-width: 1440px) {
+    .navbar_all {
+        width: 1400px;
+    }
+
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1439px) {
+    .navbar_all {
+        width: 1160px;
+    }
+
+}

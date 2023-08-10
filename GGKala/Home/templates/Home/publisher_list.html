@@ -1,0 +1,79 @@
+{% extends  'GGkala/base.html' %}
+
+{% load static %}
+{% load ratings %}
+
+{% block title %} {{ cat.page_title }} | جی جی کالا {% endblock %}
+
+{% block css %} {% static 'Category/css/sex_toys.css' %} {% endblock %}
+
+{% block body %}
+    <div class="product-page-all">
+        <div class="product-list-holder">
+
+            <div class="caption-name"> منتشرکننده این محصولات: {{ publisher.username }}</div>
+
+            <div class="product-holder">
+                <div class="product-season-holder">
+
+                    <div class="count-and-else">
+                        <div class="count-text-pr">{{ object_list.count }} محصول</div>
+                    </div>
+
+                    <div class="item-holder">
+                        {% for i in object_list %}
+                            <div class="proudoct-holder">
+
+                                <a href="#" style="text-decoration: none;">
+
+                                    <div class="proudoct_img">
+                                        <img class="product_img_main" src="{{ i.photo.url }}" alt="">
+                                    </div>
+
+                                    <div class="product-specifications">
+
+                                        <div class="star-holder">
+                                            <div class="star-photo">{% ratings i %}</div>
+                                            <div class="star-count">(320)</div>
+                                        </div>
+
+                                        <div class="title-div">
+                                            <div class="title">{{ i.title }}</div>
+                                        </div>
+
+                                        <div class="price-holder">
+                                            <img class="price-photo-toman" src="{% static 'Category/images/toman.png' %}" alt="">
+                                            <div class="price-text"> {{ i.price }} </div>
+                                        </div>
+                                    </div>
+
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+
+            {#            <div class="pagination">#}
+            {#                {% if page_obj.has_previous %}#}
+            {#                    <a href="?page={{ page_obj.previous_page_number }}">></a>#}
+            {#                    <a href="?page=1">1</a>#}
+            {#                    <a>..</a>#}
+            {##}
+            {#                    <a href="?page={{ page_obj.previous_page_number }}">{{ page.previous_page_number }}</a>#}
+            {#                {% endif %}#}
+            {##}
+            {#                <a class="active">{{ page_obj.number }}</a>#}
+            {##}
+            {##}
+            {#                {% if page_obj.has_next %}#}
+            {#                    <a href="?page={{ page_obj.next_page_number }}">{{ page.next_page_number }}</a>#}
+            {#                    <a>..</a>#}
+            {#                    <a href="?page={{ page_obj.paginator.num_pages }}">{{ page.paginator.num_pages }}</a>#}
+            {#                    <a href="?page={{ page_obj.next_page_number }}"><</a>#}
+            {#                {% endif %}#}
+            {#            </div>#}
+        </div>
+    </div>
+{% endblock %}z

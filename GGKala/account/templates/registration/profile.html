@@ -1,0 +1,48 @@
+{% extends 'registration/main.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} پروفایل | پنل ادمین جی جی کالا {% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-secondary text-center rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <a href=".. " class="yekan">برگشت</a>
+                <h6 class="mb-0 yekan">پروفایل شما</h6>
+            </div>
+
+            <form action="" method="post" novalidate enctype="multipart/form-data" style="text-align: right;direction: rtl;margin-right: 20px;" class="yekan">
+                {% csrf_token %}
+                <div class="row">
+
+
+                    <div class="col-6">
+                        {{ form.first_name|as_crispy_field }}
+                        {#                        {{ form.email|as_crispy_field }}#}
+                        {{ form.special_user|as_crispy_field }}
+                    </div>
+                    <div class="col-6">
+                        {{ form.last_name|as_crispy_field }}
+                        {{ form.username|as_crispy_field }}
+                    </div>
+                    <div class="col-6">
+                        {{ form.email|as_crispy_field }}
+                    </div>
+                    <div class="col-6">
+                        {{ form.is_staff|as_crispy_field }}
+                        {{ form.is_superuser|as_crispy_field }}
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary yekan">ذخیره</button>
+                <a href=".." type="submit" class="btn btn-primary yekan me-1">برگشت</a>
+                <a href="{% url 'password_change' %}" type="submit" class="btn btn-light yekan me-1">تغییر پسورد</a>
+
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}

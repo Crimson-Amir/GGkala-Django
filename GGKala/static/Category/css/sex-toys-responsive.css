@@ -1,0 +1,55 @@
+@media only screen and (min-width: 1440px) {
+    .product-holder-all, .caption-margin {
+        width: 1400px;
+    }
+
+    .product-season-holder {
+        width: 1062px;
+    }
+
+    .filter-list {
+        width: 335px;
+    }
+
+    .proudoct-holder {
+        width: 337px;
+        height: 690px;
+        margin-right: 16px;
+    }
+
+    .proudoct_img {
+        height: 450px;
+    }
+
+    .product_img_main {
+        height: 450px;
+    }
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1439px) {
+    .product-holder-all, .caption-margin {
+        width: 1160px;
+    }
+
+    .product-season-holder {
+        width: 882px;
+    }
+
+    .filter-list {
+        width: 278px;
+    }
+
+    .proudoct-holder {
+        width: 278px;
+        height: 619px;
+        margin-right: 16px;
+    }
+
+    .proudoct_img {
+        height: 371px;
+    }
+
+    .product_img_main {
+        width: 278px;
+    }
+}

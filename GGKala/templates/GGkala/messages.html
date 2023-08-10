@@ -1,0 +1,14 @@
+{% if messages %}
+
+    {% for message in messages %}
+        <label>
+            <input type="checkbox" class="alertCheckbox" autocomplete="off" />
+            <div class="alert {% if message.tags %} {{ message.tags }} {% endif %}>">
+                <span class="alertClose">X</span>
+                <span class="alertText">{{ message }}
+		<br class="clear"/></span>
+            </div>
+        </label>
+    {% endfor %}
+
+{% endif %}

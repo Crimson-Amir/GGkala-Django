@@ -1,0 +1,147 @@
+{% load humanize %}
+{% load ratings %}
+{% load main_tags %}
+{% load static %}
+{% load widget_tweaks %}
+
+<div class="review-margin">
+    <div class="review-holder">
+        <div class="add-review-holder">
+
+            <div class="add-review-text">
+                نظر خودتون رو بنویسید:
+            </div>
+
+            <form action="" method="post" class="form-holder" novalidate>{% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div class="erors">
+                        {% for non_field_eror in form.non_field_errors %}
+                            <div> {{ non_field_eror }} </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <input type="hidden" name="product-id" value="{{ object.id }}">
+
+                <div>
+                    <div class="review-text">
+                        امتیاز کلی <span style="color:#ff0000;">*</span>
+                    </div>
+
+                    <div class="rate">
+                        <input type="radio" id="star5" name="rate" value="5" required/>
+                        <label for="star5" title="text">5 stars</label>
+                        <input type="radio" id="star4" name="rate" value="4"/>
+                        <label for="star4" title="text">4 stars</label>
+                        <input type="radio" id="star3" name="rate" value="3"/>
+                        <label for="star3" title="text">3 stars</label>
+                        <input type="radio" id="star2" name="rate" value="2"/>
+                        <label for="star2" title="text">2 stars</label>
+                        <input type="radio" id="star1" name="rate" value="1"/>
+                        <label for="star1" title="text">1 star</label>
+                    </div>
+                </div>
+
+                <div class="review-text">
+                    عنوان دیدگاه <span style="color:#ff0000;">*</span>
+                </div>
+
+                <div class="title-review">
+                    <label>
+                        {{ form.comment_title | add_class:'y-input' }}
+
+                        {% if form.comment_title.errors %}
+                            <div class="erors">
+                                {% for comment_title in form.comment_title.errors %}
+                                    <div> {{ comment_title }} </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                    </label>
+                </div>
+
+                <div class="review-text">
+                    دیدگاه شما <span style="color:#ff0000;">*</span>
+                </div>
+
+                <div class="title-review">
+                    <label>
+                        {{ form.comment_body | add_class:'u-input' }}
+
+                        {% if form.comment_body.errors %}
+                            <div class="erors">
+                                {% for comment_body in form.comment_body.errors %}
+                                    <div> {{ comment_body }} </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </label>
+                </div>
+
+                <input type="submit" class="submit-button fotn-yekan" value="ارسال دیدگاه">
+
+            </form>
+
+        </div>
+
+        <div class="show-review">
+            <div class="show-review-holder">
+                <div class="count-review-and-filter">
+                    {% fa_number object.review.count %} دیدگاه
+                </div>
+                {% for SexToy in object.review.all %}
+                    {% csrf_token %}
+
+                    <div class="review-body-holder">
+                        <div class="score-name-data">
+                            <div class="name-holder">
+                                <div class="review-by">
+                                    ثبت شده توسط:
+                                </div>
+                                <div class="review-name">
+                                    {% if SexToy.user.first_name %}
+                                        {{ SexToy.user.first_name }}
+                                    {% else %}
+                                        {{ SexToy.user.username }}
+                                    {% endif %}
+                                </div>
+                                <div class="review-data">
+                                    <span class="fotn-yekan p-r-5"> در </span>
+                                    {% fa_number SexToy.created_short %}
+                                </div>
+                            </div>
+
+                            <div class="star-holder">
+                                {% ratings_show SexToy %}
+                            </div>
+
+                        </div>
+                        <div class="title-text">
+                            {{ SexToy.comment_title }}
+                        </div>
+
+                        <div class="title-body">
+                            <div class="titles">
+                                {{ SexToy.comment_body }}
+                            </div>
+                        </div>
+
+                        {% if SexToy.user == user %}
+
+                            <div class="edit-remove-holder">
+
+                                <a href="{% url 'delete_review' SexToy.pk %}" class="a-holder"><img class="images-edit" src="{% static 'review/images/trash.png' %}" alt=""></a>
+                                <a href="" class="a-holder"><img class="images-edit" src="{% static 'review/images/edit.png' %}" alt=""></a>
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</div>

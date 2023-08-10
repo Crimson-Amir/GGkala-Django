@@ -1,0 +1,145 @@
+{% extends 'registration/tabel.html' %}
+
+{% block title_tabel_page %}
+    کاربران سایت | پنل ادمین جی جی کالا
+{% endblock %}
+
+
+{% block add_link %}
+
+{% endblock %}
+
+
+{% block add_text %}
+    اضافه کردن کاربر
+{% endblock %}
+
+
+{% block table_title %}
+    کاربران ثبت نام شده
+{% endblock %}
+
+
+{% block coulm %}
+    <th scope="col" class="yekan">ایمیل</th>
+    <th scope="col" class="yekan">تاریخ ثبت نام</th>
+    <th scope="col" class="yekan">نام خانوادگی</th>
+    <th scope="col" class="yekan">نام اول</th>
+    <th scope="col" class="yekan">نام کاربری</th>
+{% endblock %}
+
+
+{% block row %}
+    {% for object in object_list %}
+        <tr>
+
+            <td><label>
+                <input class="form-check-input" type="checkbox">
+            </label></td>
+
+            <td class="dir-rtl">{{ object.email }}</td>
+            <td class="dir-rtl">{{ object.data_joined_short }}</td>
+            <td class="yekan">{{ object.last_name }}</td>
+            <td class="yekan">{{ object.first_name }}</td>
+            <td class="dir-rtl"><a href="">{{ object.username }}</a></td>
+
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block else_first %}
+
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-secondary text-center rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <a href="" class="yekan">اضافه کردن</a>
+                <h6 class="mb-0 yekan">سوپر یوزر ها</h6>
+            </div>
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                    <tr class="text-white">
+                        <th scope="col"><label>
+                            <input class="form-check-input" type="checkbox">
+                        </label></th>
+
+                        <th scope="col" class="yekan">سوپریوزر</th>
+                        <th scope="col" class="yekan">وضعیت کارمندی</th>
+                        <th scope="col" class="yekan">نام خانوادگی</th>
+                        <th scope="col" class="yekan">نام اول</th>
+                        <th scope="col" class="yekan">نام کاربری</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for object in just_super %}
+                        <tr>
+
+                            <td><label>
+                                <input class="form-check-input" type="checkbox">
+                            </label></td>
+
+                            <td class="dir-rtl">{{ object.is_superuser }}</td>
+                            <td class="dir-rtl">{{ object.is_staff }}</td>
+                            <td class="yekan">{{ object.last_name }}</td>
+                            <td class="yekan">{{ object.first_name }}</td>
+                            <td class="dir-rtl"><a href="">{{ object.username }}</a></td>
+
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-secondary text-center rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <a href="" class="yekan">اضافه کردن</a>
+                <h6 class="mb-0 yekan">کاربران ویژه</h6>
+            </div>
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                    <tr class="text-white">
+                        <th scope="col"><label>
+                            <input class="form-check-input" type="checkbox">
+                        </label></th>
+
+                        <th scope="col" class="yekan">تاریخ پایان اشتراک</th>
+                        <th scope="col" class="yekan">تاریخ ثبت نام</th>
+                        <th scope="col" class="yekan">نام خانوادگی</th>
+                        <th scope="col" class="yekan">نام اول</th>
+                        <th scope="col" class="yekan">نام کاربری</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for object in object_list %}
+                        {% if object.is_special_user == True %}
+                            <tr>
+
+                                <td><label>
+                                    <input class="form-check-input" type="checkbox">
+                                </label></td>
+
+                                <td class="dir-rtl">{{ object.data_special_short }}</td>
+                                <td class="dir-rtl">{{ object.data_joined_short }}</td>
+                                <td class="yekan">{{ object.last_name }}</td>
+                                <td class="yekan">{{ object.first_name }}</td>
+                                <td class="dir-rtl"><a href="">{{ object.username }}</a></td>
+
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

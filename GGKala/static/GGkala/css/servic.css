@@ -1,0 +1,54 @@
+.mar {
+    margin: 12px 0;
+}
+
+.services-holder {
+    background-color: #EDEDED;
+    margin: 0 auto;
+    max-width: 1400px;
+}
+
+.servic_option {
+    max-width: 1400px;
+    background: none;
+    margin: 0 auto;
+}
+
+.servic_mar {
+    display: flex;
+    justify-content: space-around;
+    height: 90px;
+    background: none;
+}
+
+.packaging-holder {
+    display: flex;
+    background: none;
+    align-items: center;
+}
+
+.packaging-img {
+    background: none;
+    width: 46px;
+    height: 40px;
+}
+
+.packaging-text {
+    padding-right: 17px;
+    background: none;
+    font-size: 16px;
+    font-family: Yekan, serif;
+    line-height: 22px;
+}
+
+.shipping-img {
+    background: none;
+    width: 50px;
+    height: 50px;
+}
+
+.suport-img {
+    background: none;
+    width: 40px;
+    height: 40px;
+}

@@ -1,0 +1,56 @@
+{% extends 'GGkala/base.html' %}
+{% load static %}
+
+
+{% block title %} جی‌جی‌کالا | سکس شاپ و فروشگاه آنلاین لوازم بزرگسالان {% endblock %}
+
+{% block css %} {% static 'Home/css/home.css' %} {% endblock %}
+
+{% block add_css %}
+    <link rel="stylesheet" href="{% static 'GGkala/css/servic.css' %}">
+    <link rel="stylesheet" href="{% static 'GGkala/css/category_show.css' %}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="home-page-all-holder">
+
+        <div class="banner-holder">
+            <div>
+                <picture>
+                    <img class="banner-pic" src="{% static 'Home/images/banner.webp' %}" alt="">
+                </picture>
+                <div class="banner">
+                <span class="b-n">
+                     هیچ چیز مهم تر از<br>  لذت بردن از خود نیست.
+                </span>
+                    <div class="off">
+                        کاری رو انجام بده که حس خوبی بهت میده، با 30 درصد تخفیف !
+                    </div>
+                    <div class="buttons-holder">
+
+                        <a href="" class="buttons">
+                            <div class="no-bg" style="margin-top: 4px;"> دیلدو</div>
+                        </a>
+                        <a href="" class="buttons m-r-15">
+                            <div class="no-bg" style="margin-top: 4px;"> ویبراتور</div>
+                        </a>
+                        <a href="" class="buttons m-r-15">
+                            <div class="no-bg" style="margin-top: 4px;"> خرگوشی</div>
+                        </a>
+                        <a href="" class="buttons m-r-15">
+                            <div class="no-bg" style="margin-top: 4px;"> ماساژور</div>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        {% include 'GGkala/servic.html' %}
+        {% include 'GGkala/category_show.html' %}
+
+    </div>
+
+{% endblock %}

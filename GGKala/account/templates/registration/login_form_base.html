@@ -1,0 +1,77 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}صفحه ورود | جی جی کالا{% endblock %}</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'account/dashboard/lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'account/dashboard/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'account/dashboard/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'account/dashboard/css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+<div class="container-fluid position-relative d-flex p-0">
+
+    <!-- Sign In Start -->
+    <div class="container-fluid">
+        <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
+            <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+                <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
+                    <div class="mb-4 text-center">
+                        <h3 class="yekan text-center">
+                            {% block title-form %}
+                                صفحه ورود
+                            {% endblock %}
+                        </h3>
+                    </div>
+                    <form action="" novalidate method="post">
+
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                            <div class="erors">
+                                {% for non_field_eror in form.non_field_errors %}
+                                    <div> {{ non_field_eror }} </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        {% block form %}
+
+                        {% endblock %}
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Sign In End -->
+</div>
+
+<!-- JavaScript Libraries -->
+<script src="{% static 'account/dashboard/lib/chart/chart.min.js' %}"></script>
+<script src="{% static 'account/dashboard/lib/easing/easing.min.js' %}"></script>
+<script src="{% static 'account/dashboard/lib/waypoints/waypoints.min.js' %}"></script>
+<script src="{% static 'account/dashboard/lib/owlcarousel/owl.carousel.min.js' %}"></script>
+<script src="{% static 'account/dashboard/lib/tempusdominus/js/moment.min.js' %}"></script>
+<script src="{% static 'account/dashboard/lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
+<script src="{% static 'account/dashboard/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+
+<!-- Template Javascript -->
+<script src="{% static 'account/dashboard/js/main.js' %}"></script>
+</body>
+
+</html>

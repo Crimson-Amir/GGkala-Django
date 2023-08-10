@@ -1,0 +1,98 @@
+{% extends 'registration/main.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} بروز رسانی لیست محصولات | پنل ادمین جی جی کالا {% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-secondary text-center rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <a href=".. " class="yekan">برگشت</a>
+                <h6 class="mb-0 yekan">اضافه کردن محصول جدید</h6>
+            </div>
+
+            <form action="" method="post" novalidate enctype="multipart/form-data" style="text-align: right;direction: rtl;margin-right: 20px;" class="yekan">
+                {% csrf_token %}
+                <div class="row">
+                    {% if object.publish == 'returned' and object.reason_for_return %}
+
+                        <div class="btn btn-danger text-center">
+                            <label for="">دلیل برگشت داده شدن محصول:</label>
+                            <br>
+                            {{ object.reason_for_return }}
+                        </div>
+
+                    {% endif %}
+                    {% if user.is_superuser %}
+                        <div class="col-6">
+                            {{ form.publisher|as_crispy_field }}
+                        </div>
+                    {% endif %}
+                    <div class="col-6">
+                        {{ form.slug|as_crispy_field }}
+                    </div>
+                    <div class="col-12">
+                        {{ form.title|as_crispy_field }}
+                    </div>
+                    <div class="col-6">
+                        {{ form.color|as_crispy_field }}
+                    </div>
+                    <div class="col-6">
+                        {{ form.category|as_crispy_field }}
+                    </div>
+                    <div class="col-12">
+                        {{ form.about|as_crispy_field }}
+                    </div>
+                    <div class="col-6">
+                        {{ form.photo|as_crispy_field }}
+                        {{ form.size|as_crispy_field }}
+                    </div>
+                    <div class="col-6">
+                        {{ form.price|as_crispy_field }}
+                        {{ form.off|as_crispy_field }}
+                        {{ form.brand|as_crispy_field }}
+                    </div>
+                    <div class="col-6">
+                        {{ form.inventory|as_crispy_field }}
+                    </div>
+
+                    {% if user.is_superuser %}
+                        <div class="col-6 disabled">
+                            {{ form.publish|as_crispy_field }}
+                        </div>
+                    {% elif user.is_staff %}
+                        <div class="col-6 disabled">
+                            <div id="div_id_publish" class="mb-3">
+                                <label for="id_publish" class="form-label requiredField">
+                                    وضعیت انتشار<span class="asteriskField">*</span>
+                                </label>
+                                <select name="publish" class="select form-select" id="id_publish">
+                                    <option value="unpublished" selected="">پیش نویس</option>
+                                    <option value="pending">ارسال به ادمین</option>
+                                </select>
+                                <label style="font-size: 14px;">
+                                    با انتخاب گزینه ارسال به ادمین محصول غیرقابل ادیت میشود
+                                </label>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if user.is_superuser and object.publisher.pk is not user.pk and request.resolver_match.kwargs.pk and object.publish == 'returned' or object.publish == 'pending' %}
+                        <div class="col-12">
+                            {{ form.reason_for_return|as_crispy_field }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn btn-primary yekan">ذخیره</button>
+                <a href=".." type="submit" class="btn btn-primary yekan">برگشت</a>
+
+                {% if user.is_superuser and request.resolver_match.kwargs.pk %}
+                    <a href="{% url 'account:product_delete' request.resolver_match.kwargs.pk %}" type="submit" class="btn btn-light yekan">حذف</a>
+                {% endif %}
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}

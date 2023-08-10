@@ -1,0 +1,93 @@
+{% extends 'registration/main.html' %}
+
+{% block title %} محصولات | پنل ادمین جی جی کالا {% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-secondary text-center rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <a href="{% url 'account:product_create' %}" class="yekan">اضافه کردن</a>
+                <h6 class="mb-0 yekan">لیست محصولات جی جی کالا</h6>
+            </div>
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                    <tr class="text-white">
+                        <th scope="col"><label>
+                            <input class="form-check-input" type="checkbox">
+                        </label></th>
+                        <th scope="col" class="yekan">نام کالا</th>
+                        <th scope="col" class="yekan" style="font-size: 9px;">منتشر کننده</th>
+                        <th scope="col" class="yekan">کتگوری کالا</th>
+                        <th scope="col" class="yekan">زمان انتشار</th>
+                        <th scope="col" class="yekan">برند</th>
+                        <th scope="col" class="yekan">جزئیات</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for object in object_list %}
+                        <tr>
+                            <td><label>
+                                <input class="form-check-input" type="checkbox">
+                            </label></td>
+
+                            <td class="yekan dir-rtl" >
+
+                                {% if object.publish == 'unpublished' or object.publish == 'returned' or user.is_superuser %}
+
+                                    <a href="{% url 'account:product_update' object.pk %}">{{ object.title|truncatechars:100 }}</a>
+
+                                {% else %}
+
+                                    {{ object.title|truncatechars:100 }}
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>{{ object.publisher }}</td>
+                            <td class="yekan">{{ object.show_category|truncatechars:200 }}</td>
+                            <td>{{ object.created_short }}</td>
+                            <td>{{ object.brand }}</td>
+
+                            <td class="yekan">
+                                {% if object.publish == "published" %}
+                                    <span class="d-block"><a class="badge bg-primary yekan low_font" href="{% url 'Products:detail' object.slug %}">منتشرشده</a></span>
+
+                                {% elif object.publish == "unpublished" %}
+                                    <span class="d-block"><a class="badge bg-info yekan low_font" href="{% url 'Products:preview' object.pk %}">منتشرنشده</a></span>
+
+                                {% elif object.publish == "pending" %}
+                                    <span class="d-block"><a class="badge bg-info yekan low_font" href="{% url 'Products:preview' object.pk %}">درحال بررسی</a></span>
+
+                                {% elif object.publish == "returned" %}
+                                    <span class="d-block"><a class="badge bg-light yekan low_font" href="{% url 'Products:preview' object.pk %}">برگشت داده شده</a></span>
+
+                                {% endif %}
+
+                                {% if object.inventory == "unavailable" %}
+                                    <span class="d-block"><a class="badge bg-warning yekan low_font" href="#">ناموجود است</a></span>
+
+                                {% elif object.inventory == "available" %}
+                                    <span class="d-block"><a class="badge bg-success yekan low_font" href="#">موجود است</a></span>
+
+                                {% endif %}
+
+                                {% if user.is_superuser %}
+                                    <span class="d-block"><a class="badge bg-primary yekan low_font" href="{% url 'account:product_delete' object.pk %}">حذف کردن</a></span>
+                                {% endif %}
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

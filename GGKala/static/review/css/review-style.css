@@ -1,0 +1,236 @@
+
+.review-margin {
+    border-top: 1px solid #e3e3e3;
+    width: 94%;
+    margin: 25px auto;
+}
+
+.review-holder {
+    display: flex;
+    padding-top: 15px;
+    flex-direction: column;
+}
+
+.add-review-holder {
+    display: flex;
+    flex-direction: column;
+}
+
+.show-review-holder {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-holder {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-review-text {
+    font-size: 20px;
+    font-family: "Yekan", serif;
+    font-weight: bold;
+}
+
+.review-text {
+    padding-top: 10px;
+    font-size: 15px;
+    font-family: "Yekan", serif;
+}
+
+.title-review {
+    padding-top: 15px;
+}
+
+.fotn-yekan {
+    font-family: Yekan, serif;
+    font-size: 13px;
+}
+
+.y-input {
+    width: 45%;
+    height: 45px;
+    border: 1px #181818 solid;
+    border-radius: 25px;
+    padding: 0 15px;
+    outline: none;
+}
+
+.u-input {
+    width: 45%;
+    height: 190px;
+    border: 1px #181818 solid;
+    border-radius: 25px;
+    padding: 15px 15px;
+    outline: none;
+}
+
+.submit-button {
+    cursor: pointer;
+    margin-top: 20px;
+    width: 120px;
+    height: 45px;
+    border-radius: 22px;
+    outline: none;
+    border: 1px solid #571dae;
+    background-color: #571dae;
+    color: #eaeaea;
+    transition: .5s;
+}
+
+.submit-button:hover {
+    border: 1px solid #571dae;
+    background: none;
+    color: #571dae;
+    transition: .5s;
+}
+
+.show-review {
+    border-top: 1px solid #e3e3e3;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.count-review-and-filter {
+    padding-top: 15px;
+    font-size: 17px;
+    font-weight: bold;
+    font-family: Yekan, serif;
+}
+
+.review-body-holder {
+    padding: 20px 0 30px 0;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.score-name-data {
+    display: flex;
+    flex-direction: column;
+}
+
+.name-holder {
+    display: flex;
+    align-items: center;
+}
+
+.review-by {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Yekan, serif;
+}
+
+.review-name {
+    font-size: 15px;
+    font-family: Yekan, serif;
+    padding-right: 5px;
+}
+
+
+.review-data {
+    font-size: 14px;
+    font-family: Yekan;
+}
+
+.rate {
+    float: right;
+    height: 46px;
+}
+
+.rate:not(:checked) > input {
+    position: absolute;
+    top: -9999px;
+}
+
+.rate:not(:checked) > label {
+    float: left;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 34px;
+    color: #ccc;
+}
+
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+
+.rate > input:checked ~ label {
+    color: #571dae;
+}
+
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #571dae;
+}
+
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #571dae;
+}
+
+/*.me-rate {*/
+/*    float: right;*/
+/*}*/
+
+.me-rate > label {
+    float: right;
+    width: 23px;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 25px;
+    color: #571dae;
+}
+
+.me-rate-ltr > label {
+    float: left;
+}
+
+.me-rate > label:before {
+    content: '★ ';
+}
+
+.me-rate-active ~ label {
+    color: #ccc;
+}
+
+.p-r-5 {
+    padding-right: 5px;
+}
+
+.title-text {
+    padding-top: 10px;
+    font-family: Yekan;
+    font-size: 20px;
+}
+
+.title-body {
+    padding-top: 7px;
+    font-family: Yekan;
+    font-size: 15px;
+}
+
+.edit-remove-holder {
+    display: flex;
+    align-items: center;
+    font-family: Yekan;
+    font-size: 15px;
+}
+
+.images-edit {
+    width: 18px;
+    height: 18px;
+}
+
+.a-holder {
+    text-decoration: none;
+    color: #571dae;
+    padding: 10px 0 0 10px;
+    display: flex;
+    align-items: center;
+}
