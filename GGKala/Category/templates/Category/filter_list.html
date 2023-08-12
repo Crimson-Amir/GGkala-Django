@@ -1,0 +1,275 @@
+{% load main_tags %}
+{% load static %}
+{% load humanize %}
+
+<div class="holder_filter">
+    <div class="filter_as">فیلتر ها</div>
+    <div>
+        <div class="accordion">
+            <div class="h">
+                <p>کتگوری کالا</p>
+                <div class="ppp">
+                    <div class="plusminus {% if "?" not in url %} active {% endif %}"></div>
+                </div>
+            </div>
+        </div>
+        <div class="panel {% if "?" not in url %} open {% endif %}">
+            <ul> {{ cat }} ({% fa_number cat.sexy_toys_related_name.count %})</ul>
+            {% for category in categories %}
+                <a class="text-dec-none" href="{% url 'Category:sex_toys_slug' category.slug %}?{{ query_string }}">
+                    <li>{{ category.category_name }} ({% fa_number category.product_count %})</li>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="accordion">
+        <div class="h">
+            <p>برند کالا</p>
+            <div class="ppp">
+                <div class="plusminus {% if brands %} active {% endif %}"></div>
+            </div>
+        </div>
+    </div>
+    <div class="panel {% if brands %} open {% endif %}">
+        {% for brand in unique_brands %}
+            <a href="#" data-filter-type="brand" data-filter="{{ brand.brand__brand_name }}" class="text-dec-none filter-link {% if brand.brand__brand_name in brands %}selected{% endif %}">
+                <div class="{% if brand.brand__brand_name in brands %} input-selected {% endif %} but_val">
+                    <p class="no-back">{{ brand.brand__brand_name }}</p>
+                    {% if 'brand' in url_keys or not url_keys and url_keys_len <= 1 %}
+                        <p class="no-back"> ({% fa_number brand.product_count %})</p>
+                    {% endif %}
+                </div>
+            </a>
+        {% endfor %}
+
+
+    </div>
+
+    <div class="accordion">
+        <div class="h">
+            <p>رنگ کالا</p>
+            <div class="ppp">
+                <div class="plusminus {% if colors %} active {% endif %}"></div>
+            </div>
+        </div>
+    </div>
+    <div class="panel {% if colors %} open {% endif %}">
+        {% for color in unique_colors %}
+            <a href="#" data-filter-type="color" data-filter="{{ color.color__slug }}" class="text-dec-none filter-link {% if color.color__color_name in colors %}selected{% endif %}">
+                <div class="{% if color.color__slug in colors %} input-selected {% endif %} but_val">
+                    <div class="color-show" style="background-color: #{{ color.color__color_rgb }};"></div>
+                    <p class="no-back">{{ color.color__color_name }}</p>
+                    {% if 'color' in url_keys or not url_keys and url_keys_len <= 1 %}
+                        <p class="no-back"> ({% fa_number color.product_count %})</p>
+                    {% endif %}
+                </div>
+            </a>
+        {% endfor %}
+
+    </div>
+
+    <div class="accordion">
+        <div class="h">
+            <p>محدوده قیمت</p>
+            <div class="ppp">
+                <div class="plusminus {% if colors %} active {% endif %}"></div>
+            </div>
+        </div>
+    </div>
+    <div class="panel {% if colors %} open {% endif %}">
+        <form action="" method="get">
+            <div class="wrapper">
+                <div class="price-input">
+                    <div class="field">
+                            <span class="f-a">
+                                از
+                            </span>
+                        <label>
+                            <input type="text" class="input-min" value="{% if price_start %}{% fa_number price_start|intcomma:False %}{% else %}{% fa_number min_price.real__min|intcomma:False %}{% endif %}">
+                        </label>
+                    </div>
+                    <div class="field w-100-w">
+                        <span class="f-a">
+                                تا
+                            </span>
+                        <label>
+                            <input type="text" class="input-max" value="{% if price_end %}{% fa_number price_end|intcomma:False %}{% else %}{% fa_number min_price.real__max|intcomma:False %}{% endif %}">
+                        </label>
+                    </div>
+                </div>
+                <div class="slider">
+                </div>
+                <div class="range-input">
+                    <label class="w-100-w">
+                        <input type="range" name="ra-st" class="range-min ltr-dir" min="{{ min_price.real__min }}" max="{{ min_price.real__max }}" value="{% if price_start %}{{ price_start }}{% else %}{{ min_price.real__min }}{% endif %}" step="1000">
+                    </label>
+                    <label class="w-100-w">
+                        <input type="range" name="ra-en" class="range-max ltr-dir" min="{{ min_price.real__min }}" max="{{ min_price.real__max }}" value="{% if price_end %}{{ price_end }}{% else %}{{ min_price.real__max }}{% endif %}" step="1000">
+                    </label>
+                </div>
+                <div class="show-highest-lowest">
+                    <div style="display: flex;align-items: center;">
+                        <p class="t-t">{% fa_number min_price.real__max|intcomma:False %}</p>
+                        <p class="t-t">تومان</p>
+                    </div>
+                    <div style="display: flex;align-items: center;">
+                        <p class="t-t">{% fa_number min_price.real__min|intcomma:False %}</p>
+                        <p class="t-t">تومان</p>
+                    </div>
+                </div>
+                <input type="submit" class="sub-butt" value="اعمال">
+            </div>
+        </form>
+    </div>
+
+    <div class="accordion">
+        <div class="h">
+            <p>امتیاز کالا</p>
+            <div class="ppp">
+                <div class="plusminus {% if toys_score %} active {% endif %}"></div>
+            </div>
+        </div>
+    </div>
+    <div class="panel {% if toys_score %} open {% endif %}">
+        {% rate_avg queryset 5 toys_score %}
+        {% rate_avg queryset 4 toys_score %}
+        {% rate_avg queryset 3 toys_score %}
+        {% rate_avg queryset 2 toys_score %}
+        {% rate_avg queryset 1 toys_score %}
+    </div>
+
+    <div class="accordion">
+        <div class="h">
+            <p>اندازه </p>
+            <div class="ppp">
+                <div class="plusminus {% if toys_size %} active {% endif %}"></div>
+            </div>
+        </div>
+    </div>
+    <div class="panel {% if toys_size %} open {% endif %}">
+        {% if cat.slug == "dildo" %}
+            <a href="#" data-filter-type="toys_size" data-filter="0to15" class="text-dec-none filter-link {% if '0to15' in toys_size %}selected{% endif %}">
+                <div class="{% if '0to15' in toys_size %} input-selected {% endif %} but_val">
+                    <div class="no-back">{% fa_number 'تا 15 سانتی متر' %}</div>
+                </div>
+            </a>
+            <a href="#" data-filter-type="toys_size" data-filter="16to20" class="text-dec-none filter-link {% if '16to20' in toys_size %}selected{% endif %}">
+                <div class="{% if '16to20' in toys_size %} input-selected {% endif %} but_val">
+                    <div class="no-back">{% fa_number 'از 16 تا 20 سانتی متر' %}</div>
+                </div>
+            </a>
+            <a href="#" data-filter-type="toys_size" data-filter="21to25" class="text-dec-none filter-link {% if '21to25' in toys_size %}selected{% endif %}">
+                <div class="{% if '21to25' in toys_size %} input-selected {% endif %} but_val">
+                    <div class="no-back">{% fa_number 'از 21 تا 25 سانتی متر' %}</div>
+                </div>
+            </a>
+            <a href="#" data-filter-type="toys_size" data-filter="26to100" class="text-dec-none filter-link {% if '26to100' in toys_size %}selected{% endif %}">
+                <div class="{% if '26to100' in toys_size %} input-selected {% endif %} but_val">
+                    <div class="no-back">{% fa_number 'بیشتر از 26 سانتی متر' %}</div>
+                </div>
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    const acc = document.getElementsByClassName("accordion");
+    let i;
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            const panel = this.nextElementSibling;
+            let button = this.querySelector('.plusminus');
+            // hide all other panels
+            const panels = document.getElementsByClassName("panel");
+            for (let j = 0; j < panels.length; j++) {
+                if (panels[j] !== panel) {
+                    panels[j].classList.remove('open');
+                    panels[j].previousElementSibling.querySelector('.plusminus').classList.remove('active');
+                }
+            }
+            if (panel.classList.contains('open')) {
+                panel.classList.remove('open');
+                button.classList.remove('active');
+            } else {
+                panel.classList.add('open');
+                button.classList.add('active');
+            }
+        });
+    }
+
+
+    document.querySelectorAll('.filter-link').forEach(link => {
+        link.addEventListener('click', function (event) {
+            event.preventDefault();
+            const filterType = this.dataset.filterType;
+            const filterValue = this.dataset.filter;
+            const url = new URL(window.location.href);
+            const currentFilters = url.searchParams.getAll(filterType);
+
+            if (currentFilters.includes(filterValue)) {
+                const newFilters = currentFilters.filter(f => f !== filterValue);
+                url.searchParams.delete(filterType);
+                newFilters.forEach(f => url.searchParams.append(filterType, f));
+            } else {
+                url.searchParams.append(filterType, filterValue);
+            }
+            window.location.href = url.toString();
+        });
+    });
+
+    const rangeInput = document.querySelectorAll(".range-input input");
+    const priceInput = document.querySelectorAll(".price-input input");
+    let priceGap = 1000;
+
+    priceInput.forEach((input) => {
+        input.addEventListener("input", (e) => {
+            let minPrice = parseInt(priceInput[0].value.replace(/,/g, ""));
+            let maxPrice = parseInt(priceInput[1].value.replace(/,/g, ""));
+
+            if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInput[1].max) {
+                if (e.target.className === "input-min") {
+                    rangeInput[0].value = minPrice;
+                } else {
+                    rangeInput[1].value = maxPrice;
+                }
+            }
+
+            // Convert English numbers to Farsi
+            input.value = faNumber(input.value);
+        });
+    });
+
+    rangeInput.forEach((input) => {
+        input.addEventListener("input", (e) => {
+            let minVal = parseInt(rangeInput[0].value.replace(/,/g, ""));
+            let maxVal = parseInt(rangeInput[1].value.replace(/,/g, ""));
+
+            if (maxVal - minVal < priceGap) {
+                if (e.target.className === "range-min") {
+                    rangeInput[0].value = maxVal - priceGap;
+                } else {
+                    rangeInput[1].value = minVal + priceGap;
+                }
+            } else {
+                priceInput[0].value = minVal.toLocaleString('en-US');
+                priceInput[1].value = maxVal.toLocaleString('en-US');
+            }
+
+            // Convert English numbers to Farsi
+            priceInput.forEach((input) => {
+                input.value = faNumber(input.value);
+            });
+        });
+    });
+
+    // Function to convert English numbers to Farsi
+    function faNumber(number) {
+        const farsiDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+        const englishNumber = number.replace(/[۰-۹]/g, (digit) => farsiDigits.indexOf(digit));
+        const formattedNumber = parseInt(englishNumber.replace(/,/g, "")).toLocaleString('en-US');
+        return formattedNumber.replace(/\d/g, (digit) => farsiDigits[digit]);
+    }
+
+
+</script>
