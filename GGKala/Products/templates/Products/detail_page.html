@@ -4,6 +4,6 @@
 {% block title %} صفحه دیتیل {% endblock %}
 
 {% block body %}
-    <div>{{ object.title }}</div>
+    {% include 'Products/product_main_detail.html' %}
     {% include 'Products/review-template.html' %}
 {% endblock %}

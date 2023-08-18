@@ -1,4 +1,4 @@
-<div class="me-rate me-rate-ltr">
+<div class="me-rate me-rate-ltr" {% if dire == 'rtl' %} style="display: flex;flex-direction: row;" {% endif %}>
 
     <label {% if object == 1 %} class="me-rate-active" {% endif %} title="text">1 star</label>
     <label {% if object == 2 %} class="me-rate-active" {% endif %} title="text">2 stars</label>

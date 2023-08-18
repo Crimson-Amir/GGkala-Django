@@ -12,7 +12,7 @@ def ratings_show(objects):
 
 
 @register.inclusion_tag("Products/temtag/ratings-templatetags-ltr.html")
-def average_rate(objects):
+def average_rate(objects, direction="ltr", star_width=None):
     try:
         num = 0
         sums = 0
@@ -21,9 +21,13 @@ def average_rate(objects):
             sums += i.rate
         objects = math.floor((sums / num) + 0.5)
         return {
-            "object": objects
+            "object": objects,
+            "dire": direction,
+            "star_width": star_width
         }
     except ZeroDivisionError:
         return {
-            "object": 1
+            "object": 1,
+            "dire": direction,
+            "star_width": star_width
         }

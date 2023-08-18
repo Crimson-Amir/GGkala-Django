@@ -1,0 +1,198 @@
+{% load static %}
+{% load ratings %}
+{% load main_tags %}
+{% load humanize %}
+
+{% block add_css %}
+    <link rel="stylesheet" href="{% static 'Products/css/product_main_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'Products/css/product_main_detail_responsive.css' %}">
+{% endblock %}
+
+<div class="all-margin">
+    <div class="image-of-product">
+
+        <div class="left-side">
+            <div class="photo-navigation">
+                <button onclick="previousPhotos()">
+                    <img src="{% static 'Products/images/top-arrow.png' %}" class="arrow-class" alt="top-arrow">
+                </button>
+                <div class="product-photos">
+                    <div class="photo-container" style="border: 2px solid #571dae;">
+                        <img src="{{ object.photo.url }}" alt="{{ object.photo.url }}" onclick="displayMainPhoto(this)">
+                    </div>
+                </div>
+                {% for picture in pictures %}
+                    <div class="product-photos">
+                        <div class="photo-container">
+                            <img src="{{ picture.image.url }}" alt="{{ picture.image.url }}" onclick="displayMainPhoto(this)">
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <button onclick="nextPhotos()">
+                    <img src="{% static 'Products/images/bottom-arrow.png' %}" class="arrow-class" alt="top-arrow">
+                </button>
+            </div>
+
+            <div class="main-photo">
+                <img id="mainPhoto" src="{{ object.photo.url }}" alt="Main-Product-Image">
+
+                <img class="navigate-butt-left" id="previousButton" src="{% static 'Products/images/PreviousPhoto.png' %}" onclick="showPreviousPhoto()" alt="previos">
+                <img class="navigate-butt-right" id="nextButton" src="{% static 'Products/images/NextPhoto.png' %}" onclick="showNextPhoto()" alt="next">
+            </div>
+        </div>
+
+        <div class="right-side">
+            <div class="product-details">
+                <div class="title-of-product">
+                    {{ object.title }}
+                </div>
+                <div class="rate-star">
+                    <div class="rateing">
+                        {% average_rate object.review.all 'rtl' %}
+                        <a href="#" class="comment-link">{% fa_number object.review.count %} <p class="didgah">دیدگاه</p></a>
+                    </div>
+
+                    <div class="price-holder-detail">
+                        {% if object.off %}
+                            <div class="off-holder-detail">
+                                <div class="toman-off-disabled-detail">
+                                    <div class="price-text-detail" style="font-size: 17px;margin-left: 10px; text-decoration: line-through;">
+                                        {% fa_number object.price|intcomma:False %}
+                                    </div>
+                                </div>
+                                <div class="toman-off-detail">
+                                    <div class="price-text-detail" style="color: #ff0000;">
+                                        {% fa_number object.discounted_price|intcomma:False %}
+                                    </div>
+                                    <img class="price-photo-toman-detail" src="{% static 'Category/images/toman-red.png' %}" alt="">
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="price-text-detail">
+                                {% fa_number object.price|intcomma:False %}
+                            </div>
+                            <img class="price-photo-toman-detail" src="{% static 'Category/images/toman.png' %}" alt="">
+                        {% endif %}
+                    </div>
+
+                    <div class="colors-detail">
+                        <div class="selected-color">
+                            <div class="color-s">رنگ:</div>
+                            {% for color in object.color.all %}
+                                <span class="color-circle" style="background-color: #{{ color.color_rgb }};" onclick="selectColor('{{ color.id }}')"></span>
+                            {% endfor %}
+
+                            <form id="color-form" method="post" action="">
+                                {% csrf_token %}
+                                <input type="hidden" id="selected-color" name="color" value="">
+                                <input type="submit">
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentPhotoIndex = 0;
+    const ph = document.querySelectorAll('.photo-container img');
+
+    function showPreviousPhoto() {
+        currentPhotoIndex = (currentPhotoIndex - 1 + ph.length) % ph.length;
+        displayMainPhoto(ph[currentPhotoIndex]);
+    }
+
+    function showNextPhoto() {
+        currentPhotoIndex = (currentPhotoIndex + 1) % ph.length;
+        displayMainPhoto(ph[currentPhotoIndex]);
+    }
+
+    // Get the main photo element
+    const mainPhoto = document.getElementById('mainPhoto');
+
+    // Add a mousemove event listener to the main photo
+    mainPhoto.addEventListener('mousemove', (event) => {
+        // Calculate the position of the mouse relative to the image
+        const rect = mainPhoto.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        // Calculate the percentage of the mouse position within the image
+        const percentX = (x / rect.width) * 100;
+        const percentY = (y / rect.height) * 100;
+
+        // Apply the zoom effect by modifying the transform origin and scale
+        mainPhoto.style.transformOrigin = `${percentX}% ${percentY}%`;
+        mainPhoto.style.transform = 'scale(2)';
+    });
+
+    // Add a mouseout event listener to the main photo
+    mainPhoto.addEventListener('mouseout', () => {
+        // Reset the transform to remove the zoom effect
+        mainPhoto.style.transformOrigin = 'center center';
+        mainPhoto.style.transform = 'scale(1)';
+    });
+
+
+    const photos = document.querySelectorAll(".photo-container");
+    let currentIndex = 0;
+
+    function displayMainPhoto(photo) {
+        const mainPhoto = document.getElementById("mainPhoto");
+        mainPhoto.src = photo.src;
+        mainPhoto.alt = photo.alt;
+
+        const photoContainers = document.querySelectorAll(".photo-container");
+        photoContainers.forEach(container => {
+            container.style.setProperty("border", "2px solid #e1e1e1");
+        });
+
+        photo.parentNode.style.setProperty("border", "2px solid #571dae");
+
+        // Check if the selected photo is outside the range of the current visible photos
+        const selectedPhotoIndex = Array.from(photos).indexOf(photo.parentNode);
+        if (selectedPhotoIndex < currentIndex || selectedPhotoIndex >= currentIndex + 5) {
+            currentIndex = Math.max(0, selectedPhotoIndex - 4);
+            updatePhotoVisibility();
+        }
+    }
+
+
+    function previousPhotos() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updatePhotoVisibility();
+        }
+    }
+
+    function nextPhotos() {
+        if (currentIndex < photos.length - 5) {
+            currentIndex++;
+            updatePhotoVisibility();
+        }
+    }
+
+    function updatePhotoVisibility() {
+        for (let i = 0; i < photos.length; i++) {
+            if (i >= currentIndex && i < currentIndex + 5) {
+                photos[i].style.display = "block";
+                photos[i].style.marginBottom = "10px";
+            } else {
+                photos[i].style.display = "none";
+                photos[i].style.marginBottom = "0";
+            }
+        }
+    }
+
+    updatePhotoVisibility();
+
+    function selectColor(color) {
+        document.getElementById('selected-color').value = color;
+        {#document.getElementById('color-form').submit();#}
+    }
+
+</script>

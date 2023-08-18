@@ -1,0 +1,39 @@
+@media only screen and (min-width: 1440px) {
+    .all-margin {
+        width: 1400px;
+    }
+
+    .photo-container {
+        width: 97px;
+        height: 131px;
+    }
+
+    .main-photo {
+        height: 750px;
+    }
+
+    #mainPhoto {
+        width: 560px;
+        height: 750px;
+    }
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1439px) {
+    .all-margin {
+        width: 1160px;
+    }
+
+    .photo-container {
+        width: 78px;
+        height: 107px;
+    }
+
+    .main-photo {
+        height: 636px;
+    }
+
+    #mainPhoto {
+        width: 450px;
+        height: 636px;
+    }
+}

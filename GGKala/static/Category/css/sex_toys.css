@@ -119,7 +119,7 @@
 .proudoct-holder {
     display: flex;
     flex-direction: column;
-    margin: 0 0 16px 0;
+    margin: 0 0 15px 0;
     border: 0;
     transition: .1s;
     /*border-radius: 4px 4px 0 0;*/
@@ -148,16 +148,16 @@
 }
 
 .off-text {
+    padding-top: 7px;
     display: flex;
     align-items: center;
     background: none;
     color: #eaeaea;
-    font-family: "Yekan", serif;
-    font-size: 15px;
+    font-family: Shabnam;
+    font-size: 14px;
 }
 
 .img-off-back {
-    margin-top: 2px;
     padding-right: 3px;
     width: 12px;
     height: 12px;
@@ -197,7 +197,7 @@
 .star-count {
     padding: 3px 0 0 5px;
     text-decoration: none;
-    font-family: Arial, serif;
+    font-family: Shabnam;
     font-size: 14px;
 }
 
@@ -210,7 +210,7 @@
 }
 
 .title {
-    font-family: "Yekan", serif;
+    font-family: Shabnam;
     font-size: 15px;
     background: none;
 }
@@ -227,7 +227,7 @@
 }
 
 .count {
-    font-family: "Yekan", serif;
+    font-family: Shabnam;
     font-weight: bold;
     font-size: 14px;
     display: inline-block;
@@ -238,7 +238,7 @@
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
-    padding-top: 28px;
+    padding-top: 18px;
     background: none;
 }
 
@@ -260,8 +260,8 @@
 }
 
 .price-text {
-    font-family: Arial, serif;
-    font-size: 20px;
+    font-family: Shabnam;
+    font-size: 21px;
     background: none;
 }
 
@@ -289,7 +289,7 @@
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
-    padding-top: 18px;
+    padding-top: 16px;
 }
 
 .p-d-l {

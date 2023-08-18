@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
 from django.views.generic import DetailView
 # from Category import models
-from .models import SexToys
+from .models import SexToys, ProductImage
 from account.mixin import PreviewMixin
 from review.forms import ReviewForms
 from review.models import ReviewModel
@@ -9,7 +9,7 @@ from review.models import ReviewModel
 
 def detail(request, slugname):
     mod = get_object_or_404(SexToys.object.return_published_product(), slug=slugname)
-
+    products = ProductImage.objects.filter(product=mod)
     ip = request.user.ip_address
     if ip not in mod.hits.all():
         mod.hits.add(ip)
@@ -29,7 +29,7 @@ def detail(request, slugname):
     else:
         form = ReviewForms()
 
-    return render(request, 'Products/detail_page.html', context={'object': mod, 'form': form})
+    return render(request, 'Products/detail_page.html', context={'object': mod, 'form': form, 'pictures': productsm, })
 
 
 class DetailPreview(PreviewMixin, DetailView):

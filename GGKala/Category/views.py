@@ -29,6 +29,12 @@ class CategoryListView(ListView):
         global queryset
         queryset = category.sexy_toys_related_name.return_published_product()
 
+        for featur in category.features.all():
+            # name = featur.feature_slug.replace('-', '_')
+            # setattr(self, name,
+            if self.request.GET.getlist(featur.feature_slug):
+                queryset = queryset.filter(product_features__product_feature_slug__in=self.request.GET.getlist(featur.feature_slug))
+
         sort_options = {
             "score": queryset.annotate(res_off=Avg('review__rate')).order_by('-res_off'),
             "newst": queryset.order_by('-id'),
@@ -48,7 +54,7 @@ class CategoryListView(ListView):
         if toys_score:
             queryset = queryset.annotate(res_off=Avg('review__rate')).filter(res_off__in=toys_score)
 
-        if slug == 'didlo':
+        if 'didlo' in slug:
             if toys_size:
                 size_ranges = []
                 for size_range_str in toys_size:
@@ -67,6 +73,8 @@ class CategoryListView(ListView):
         slug = self.kwargs.get('slugname')
         category = get_object_or_404(Category.objects.return_truestatus(), slug=slug)
         wo_change = category.sexy_toys_related_name.return_published_product()
+
+        context['features'] = category.features.all()
         context['url_keys'] = list(self.request.GET.keys())
         context['url_keys_len'] = len(list(self.request.GET.keys()))
         context['queryset'] = wo_change

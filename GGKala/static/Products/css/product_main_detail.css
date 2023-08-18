@@ -1,0 +1,198 @@
+.all-margin {
+    margin: auto;
+}
+
+.image-of-product {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.left-side {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.product-photos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*padding-bottom: 10px;*/
+}
+
+.photo-container {
+    /* responsived */
+    background-color: #e1e1e1;
+    overflow: hidden;
+    border: 2px solid #e1e1e1;
+}
+
+.photo-container img {
+    width: 100%;
+    height: 100%;
+    background: none;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.main-photo {
+    display: flex;
+    background-color: #e1e1e1;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+#mainPhoto {
+    background: none;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    cursor: zoom-in;
+    position: static;
+}
+
+.photo-navigation {
+    display: flex;
+    flex-direction: column;
+    padding-right: 20px;
+    align-items: center;
+}
+
+.photo-navigation button {
+    outline: none;
+    border: none;
+    width: 20px;
+    padding-bottom: 5px;
+    cursor: pointer;
+}
+
+.arrow-class {
+    width: 17px;
+}
+
+.navigate-butt-left {
+    width: 15px;
+    background: none;
+    position: absolute;
+    left: 10px;
+    cursor: pointer;
+}
+
+.navigate-butt-right {
+    width: 16px;
+    background: none;
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+
+.right-side {
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.title-of-product {
+    font-family: Shabnam;
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 7px;
+}
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+    padding: 0 13%;
+}
+
+.rateing {
+    font-family: Shabnam;
+    display: flex;
+    align-items: center;
+}
+
+.comment-link {
+    padding-right: 5px;
+    /*text-decoration: none;*/
+    text-decoration-color: #0be;
+    color: #414141;
+    display: flex;
+    align-items: center;
+    text-underline-offset: 2px;
+    text-decoration-thickness: .1dvh;
+}
+
+.didgah {
+    font-size: 15px;
+    padding-right: 2px;
+}
+
+.price-holder-detail {
+    padding-right: 3px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 15px;
+    background: none;
+}
+
+.off-holder-detail {
+    display: flex;
+    align-items: center;
+}
+
+.toman-off-detail {
+    display: flex;
+    align-items: center;
+}
+
+.price-photo-toman-detail {
+    width: 25px;
+    height: 25px;
+    background: none;
+    padding-right: 5px;
+}
+
+.price-text-detail {
+    font-family: Shabnam;
+    font-size: 23px;
+    background: none;
+}
+
+.colors-detail {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100px;
+    margin-top: 30px;
+    border-radius: 12px;
+    background-color: #f1f1f1;
+}
+
+.selected-color {
+    background: none;
+    display: flex;
+}
+
+.color-s {
+    padding: 15px 20px 15px 0;
+    background: none;
+    font-family: Shabnam;
+}
+
+.tpp {
+    background-color: #6f42c1;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.color-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 5px 4px;
+    cursor: pointer;
+}

@@ -61,7 +61,7 @@
                                     <div class="proudoct_img">
                                         {% if i.off and i.off != null %}
                                             <div class="off-show">
-                                                <div class="off-text"> {{ i.off }}% تخفیف <img class="img-off-back" src="{% static 'Category/images/back.png' %}" alt=""></div>
+                                                <div class="off-text"> {% fa_number i.off %}% تخفیف <img class="img-off-back" src="{% static 'Category/images/back.png' %}" alt=""></div>
                                             </div>
                                         {% endif %}
                                         <img class="product_img_main" src="{{ i.photo.url }}" alt="">
@@ -71,7 +71,7 @@
 
                                         <div class="star-holder">
                                             {% average_rate i.review.all %}
-                                            <div class="star-count">({{ i.review.count }})</div>
+                                            <div class="star-count">({% fa_number i.review.count %})</div>
                                         </div>
 
                                         <div class="title-div">
@@ -83,12 +83,12 @@
                                                 <div class="off-holder">
                                                     <div class="toman-off-disabled">
                                                         <div class="price-text" style="font-size: 17px;margin-left: 10px; text-decoration: line-through;">
-                                                            {{ i.price|intcomma:False }}
+                                                            {% fa_number i.price|intcomma:False %}
                                                         </div>
                                                     </div>
                                                     <div class="toman-off">
                                                         <div class="price-text" style="color: #ff0000;">
-                                                            {{ i.discounted_price|intcomma:False }}
+                                                            {% fa_number i.discounted_price|intcomma:False %}
                                                         </div>
                                                         <img class="price-photo-toman" src="{% static 'Category/images/toman-red.png' %}" alt="">
                                                     </div>
@@ -96,7 +96,7 @@
                                             {% else %}
                                                 <img class="price-photo-toman" src="{% static 'Category/images/toman.png' %}" alt="">
                                                 <div class="price-text">
-                                                    {{ i.price|intcomma:False }}
+                                                    {% fa_number i.price|intcomma:False %}
                                                 </div>
                                             {% endif %}
                                         </div>

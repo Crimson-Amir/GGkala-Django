@@ -171,6 +171,29 @@
             </a>
         {% endif %}
     </div>
+
+    {% for feature in features %}
+        <div class="accordion">
+            <div class="h">
+                <p> {{ feature.name }} </p>
+                <div class="ppp">
+                    <div class="plusminus {% if toys_size %} active {% endif %}"></div>
+                </div>
+            </div>
+        </div>
+        <div class="panel {% if colors %} open {% endif %}">
+            {% for featur in feature.product_features.all %}
+                <a href="#" data-filter-type="{{ feature.feature_slug }}" data-filter="{{ featur.product_feature_slug }}" class="text-dec-none filter-link {% if color.color__color_name in colors %}selected{% endif %}">
+                    <div class="{% if color.color__slug in colors %} input-selected {% endif %} but_val">
+                        <p class="no-back">{{ featur.value }}</p>
+                    </div>
+                </a>
+            {% endfor %}
+
+        </div>
+    {% endfor %}
+
+
 </div>
 
 <script>

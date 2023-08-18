@@ -75,6 +75,11 @@ class SexToys(models.Model):
         ordering = ("-created",)
 
 
+class ProductImage(models.Model):
+    product = models.ForeignKey(SexToys, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="product_detail_image")
+
+
 class Feature(models.Model):
     name = models.CharField(max_length=200)
     category = models.ForeignKey(Category, related_name='features', on_delete=models.CASCADE, limit_choices_to={'parent__isnull': True})
