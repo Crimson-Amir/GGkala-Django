@@ -29,7 +29,8 @@ def detail(request, slugname):
     else:
         form = ReviewForms()
 
-    return render(request, 'Products/detail_page.html', context={'object': mod, 'form': form, 'pictures': productsm, })
+    return render(request, 'Products/detail_page.html', context={'object': mod, 'form': form, 'pictures': products,
+                                                                 'first_color': mod.color.first})
 
 
 class DetailPreview(PreviewMixin, DetailView):

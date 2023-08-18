@@ -78,15 +78,22 @@
 
                     <div class="colors-detail">
                         <div class="selected-color">
-                            <div class="color-s">رنگ:</div>
-                            {% for color in object.color.all %}
-                                <span class="color-circle" style="background-color: #{{ color.color_rgb }};" onclick="selectColor('{{ color.id }}')"></span>
-                            {% endfor %}
+                            <div class="color-names">
+                                <div class="color-s">رنگ:</div>
+                                <div class="color-ss" id="color-name">{{ first_color.color_name }}</div>
+                            </div>
+
+                            <div class="color-select">
+                                {% for color in object.color.all %}
+                                    <div class="color-detail" title="{{ color.color_name }}">
+                                        <span class="color-circle" style="background-color: #{{ color.color_rgb }};" onclick="selectColor(this, '{{ color.id }}', '{{ color.color_name }}')"></span>
+                                    </div>
+                                {% endfor %}
+                            </div>
 
                             <form id="color-form" method="post" action="">
                                 {% csrf_token %}
-                                <input type="hidden" id="selected-color" name="color" value="">
-                                <input type="submit">
+                                <input type="hidden" id="selected-color" name="color" value="{{ first_color.pk }}">
                             </form>
                         </div>
                     </div>
@@ -190,9 +197,21 @@
 
     updatePhotoVisibility();
 
-    function selectColor(color) {
-        document.getElementById('selected-color').value = color;
-        {#document.getElementById('color-form').submit();#}
+    function selectColor(element, colorId, colorName) {
+        // Remove the 'selected' class from all color details
+        const colorDetails = document.getElementsByClassName('color-detail');
+        for (let i = 0; i < colorDetails.length; i++) {
+            colorDetails[i].classList.remove('selected');
+        }
+
+        // Add the 'selected' class to the parent color detail of the clicked color circle
+        element.parentNode.classList.add('selected');
+
+        // Update the selected color and its name
+        document.getElementById('selected-color').value = colorId;
+        document.getElementById('color-name').innerText = colorName;
     }
 
+
 </script>
+
