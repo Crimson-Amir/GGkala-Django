@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
 from django.views.generic import DetailView
 # from Category import models
-from .models import SexToys, ProductImage
+from .models import SexToys, ProductImage, PeopleBuyAlso
 from account.mixin import PreviewMixin
 from review.forms import ReviewForms
 from review.models import ReviewModel
@@ -29,8 +29,9 @@ def detail(request, slugname):
     else:
         form = ReviewForms()
 
+    p = mod.price - mod.discounted_price()
     return render(request, 'Products/detail_page.html', context={'object': mod, 'form': form, 'pictures': products,
-                                                                 'first_color': mod.color.first})
+                                                                 'first_color': mod.color.first, 'p': p})
 
 
 class DetailPreview(PreviewMixin, DetailView):

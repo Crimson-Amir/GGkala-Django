@@ -41,3 +41,9 @@ class ProductFeatureAdmin(admin.ModelAdmin):
 class ProductImageAdmin(admin.ModelAdmin):
     list_display = ('product', 'image')
     search_fields = ('product', 'image')
+
+
+# @admin.register(PeopleBuyAlso)
+# class ProductImageAdmin(admin.ModelAdmin):
+#     list_display = ('product', 'image')
+#     search_fields = ('product', 'image')

@@ -9,99 +9,122 @@
 {% endblock %}
 
 <div class="all-margin">
-    <div class="image-of-product">
+    <form id="color-form" method="get" action="">
+        {% csrf_token %}
+        <div class="image-of-product">
 
-        <div class="left-side">
-            <div class="photo-navigation">
-                <button onclick="previousPhotos()">
-                    <img src="{% static 'Products/images/top-arrow.png' %}" class="arrow-class" alt="top-arrow">
-                </button>
-                <div class="product-photos">
-                    <div class="photo-container" style="border: 2px solid #571dae;">
-                        <img src="{{ object.photo.url }}" alt="{{ object.photo.url }}" onclick="displayMainPhoto(this)">
-                    </div>
-                </div>
-                {% for picture in pictures %}
+            <div class="left-side">
+                <div class="photo-navigation">
+                    <button onclick="previousPhotos()">
+                        <img src="{% static 'Products/images/top-arrow.png' %}" class="arrow-class" alt="top-arrow">
+                    </button>
                     <div class="product-photos">
-                        <div class="photo-container">
-                            <img src="{{ picture.image.url }}" alt="{{ picture.image.url }}" onclick="displayMainPhoto(this)">
+                        <div class="photo-container" style="border: 2px solid #571dae;">
+                            <img src="{{ object.photo.url }}" alt="{{ object.photo.url }}" onclick="displayMainPhoto(this)">
                         </div>
                     </div>
-                {% endfor %}
+                    {% for picture in pictures %}
+                        <div class="product-photos">
+                            <div class="photo-container">
+                                <img src="{{ picture.image.url }}" alt="{{ picture.image.url }}" onclick="displayMainPhoto(this)">
+                            </div>
+                        </div>
+                    {% endfor %}
 
-                <button onclick="nextPhotos()">
-                    <img src="{% static 'Products/images/bottom-arrow.png' %}" class="arrow-class" alt="top-arrow">
-                </button>
-            </div>
-
-            <div class="main-photo">
-                <img id="mainPhoto" src="{{ object.photo.url }}" alt="Main-Product-Image">
-
-                <img class="navigate-butt-left" id="previousButton" src="{% static 'Products/images/PreviousPhoto.png' %}" onclick="showPreviousPhoto()" alt="previos">
-                <img class="navigate-butt-right" id="nextButton" src="{% static 'Products/images/NextPhoto.png' %}" onclick="showNextPhoto()" alt="next">
-            </div>
-        </div>
-
-        <div class="right-side">
-            <div class="product-details">
-                <div class="title-of-product">
-                    {{ object.title }}
+                    <button onclick="nextPhotos()">
+                        <img src="{% static 'Products/images/bottom-arrow.png' %}" class="arrow-class" alt="top-arrow">
+                    </button>
                 </div>
-                <div class="rate-star">
-                    <div class="rateing">
-                        {% average_rate object.review.all 'rtl' %}
-                        <a href="#" class="comment-link">{% fa_number object.review.count %} <p class="didgah">دیدگاه</p></a>
-                    </div>
 
-                    <div class="price-holder-detail">
-                        {% if object.off %}
-                            <div class="off-holder-detail">
-                                <div class="toman-off-disabled-detail">
-                                    <div class="price-text-detail" style="font-size: 17px;margin-left: 10px; text-decoration: line-through;">
-                                        {% fa_number object.price|intcomma:False %}
+                <div class="main-photo">
+                    <img id="mainPhoto" src="{{ object.photo.url }}" alt="Main-Product-Image">
+
+                    <img class="navigate-butt-left" id="previousButton" src="{% static 'Products/images/PreviousPhoto.png' %}" onclick="showPreviousPhoto()" alt="previos">
+                    <img class="navigate-butt-right" id="nextButton" src="{% static 'Products/images/NextPhoto.png' %}" onclick="showNextPhoto()" alt="next">
+                </div>
+            </div>
+
+            <div class="right-side">
+                <div class="product-details">
+                    <div class="title-of-product">
+                        {{ object.title }}
+                    </div>
+                    <div class="rate-star">
+                        <div class="rateing">
+                            {% average_rate object.review.all 'rtl' %}
+                            <a href="#" class="comment-link">{% fa_number object.review.count %} <p class="didgah">دیدگاه</p></a>
+                        </div>
+
+                        <div class="price-holder-detail">
+                            {% if object.off %}
+                                <div class="save-and-holder">
+                                    <div class="off-holder-detail">
+                                        <div class="toman-off-disabled-detail">
+                                            <div class="price-text-detail" style="font-size: 17px;margin-right: 10px; text-decoration: line-through;">
+                                                {% fa_number object.price|intcomma:False %}
+                                            </div>
+                                        </div>
+                                        <div class="toman-off-detail">
+                                            <div class="price-text-detail" style="color: #ff0000;">
+                                                {% fa_number object.discounted_price|intcomma:False %}
+                                            </div>
+                                            <img class="price-photo-toman-detail" src="{% static 'Category/images/toman-red.png' %}" alt="">
+                                        </div>
+                                    </div>
+
+                                    <div class="save-money">
+                                        <span>سود شما از خرید:</span>
+                                        <span> {% fa_number p|intcomma:False %} تومان</span>
+                                        <span>({% fa_number object.off %}%)</span>
                                     </div>
                                 </div>
-                                <div class="toman-off-detail">
-                                    <div class="price-text-detail" style="color: #ff0000;">
-                                        {% fa_number object.discounted_price|intcomma:False %}
-                                    </div>
-                                    <img class="price-photo-toman-detail" src="{% static 'Category/images/toman-red.png' %}" alt="">
+                            {% else %}
+                                <div class="price-text-detail">
+                                    {% fa_number object.price|intcomma:False %}
                                 </div>
-                            </div>
-                        {% else %}
-                            <div class="price-text-detail">
-                                {% fa_number object.price|intcomma:False %}
-                            </div>
-                            <img class="price-photo-toman-detail" src="{% static 'Category/images/toman.png' %}" alt="">
-                        {% endif %}
-                    </div>
+                                <img class="price-photo-toman-detail" src="{% static 'Category/images/toman.png' %}" alt="">
+                            {% endif %}
+                        </div>
 
-                    <div class="colors-detail">
-                        <div class="selected-color">
-                            <div class="color-names">
-                                <div class="color-s">رنگ:</div>
-                                <div class="color-ss" id="color-name">{{ first_color.color_name }}</div>
-                            </div>
+                        <div class="colors-detail">
+                            <div class="selected-color">
+                                <div class="color-names">
+                                    <div class="color-s">رنگ:</div>
+                                    <div class="color-ss" id="color-name">{{ first_color.color_name }}</div>
+                                </div>
 
-                            <div class="color-select">
-                                {% for color in object.color.all %}
-                                    <div class="color-detail" title="{{ color.color_name }}">
-                                        <span class="color-circle" style="background-color: #{{ color.color_rgb }};" onclick="selectColor(this, '{{ color.id }}', '{{ color.color_name }}')"></span>
-                                    </div>
-                                {% endfor %}
-                            </div>
+                                <div class="color-select">
+                                    {% for color in object.color.all %}
+                                        <div class="color-detail {% if color.color_name == first_color.color_name %} selected {% endif %}" title="{{ color.color_name }}">
+                                            <span class="color-circle" style="background-color: #{{ color.color_rgb }};" onclick="selectColor(this, '{{ color.id }}', '{{ color.color_name }}')"></span>
+                                        </div>
+                                    {% endfor %}
+                                </div>
 
-                            <form id="color-form" method="post" action="">
-                                {% csrf_token %}
+
                                 <input type="hidden" id="selected-color" name="color" value="{{ first_color.pk }}">
-                            </form>
-                        </div>
-                    </div>
 
+                            </div>
+                        </div>
+
+                        <div class="people-also-buy">
+                            <span class="like-this">مناسب برای این کالا:</span>
+                            <div class="products-like">
+                                <div class="pr-like">
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" class="checkbox" name="more" value="">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+            <div style="height: 1000px;"> hello</div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 
 <script>
@@ -211,6 +234,24 @@
         document.getElementById('selected-color').value = colorId;
         document.getElementById('color-name').innerText = colorName;
     }
+
+    {#window.addEventListener('scroll', function () {#}
+    {#    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;#}
+    {#    const containerOffset = document.querySelector('.image-of-product').offsetTop;#}
+    {#    const image = document.querySelector('.left-side');#}
+    {#    const rightSide = document.querySelector('.right-side');#}
+    {#    const rightSideHeight = rightSide.offsetHeight;#}
+    {##}
+    {#    if (scrollTop > containerOffset && scrollTop < containerOffset + rightSideHeight) {#}
+    {#        image.style.transform = `translateY(${scrollTop - containerOffset}px)`;#}
+    {#    } else if (scrollTop >= containerOffset + rightSideHeight) {#}
+    {#        image.style.transform = `translateY(${rightSideHeight}px)`;#}
+    {#    } else {#}
+    {#        image.style.transform = 'translateY(0)';#}
+    {#    }#}
+    {#});#}
+
+
 
 
 </script>

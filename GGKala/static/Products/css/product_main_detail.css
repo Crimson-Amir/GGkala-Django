@@ -3,12 +3,14 @@
 }
 
 .image-of-product {
+    /*position: relative;*/
     padding-top: 20px;
     display: flex;
     flex-direction: row-reverse;
 }
 
 .left-side {
+    /*position: sticky;*/
     display: flex;
     flex-direction: row-reverse;
 }
@@ -134,13 +136,14 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-top: 15px;
+    padding-top: 23px;
     background: none;
 }
 
 .off-holder-detail {
     display: flex;
     align-items: center;
+    flex-direction: row-reverse;
 }
 
 .toman-off-detail {
@@ -152,7 +155,7 @@
     width: 25px;
     height: 25px;
     background: none;
-    padding-right: 5px;
+    padding-right: 3px;
 }
 
 .price-text-detail {
@@ -165,7 +168,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-top: 40px;
+    padding-top: 30px;
     /*border-radius: 12px;*/
     /*background-color: #f1f1f1;*/
 }
@@ -235,4 +238,77 @@
     padding-right: 5px;
     font-weight: bold;
     padding-top: 2px;
+}
+
+.save-and-holder {
+    display: flex;
+    flex-direction: column;
+    align-items: self-start;
+}
+
+.save-money {
+    padding-top: 4px;
+    font-family: Shabnam;
+    font-size: 14px;
+    padding-bottom: 5px;
+    color: #161615;
+}
+
+.people-also-buy {
+    display: flex;
+    flex-direction: column;
+}
+
+.like-this {
+    padding-top: 35px;
+    font-size: 16px;
+    color: #161615;
+    font-family: Shabnam;
+    font-weight: bold;
+}
+
+.products-like {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.checkbox-container {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.checkbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    background-color: transparent;
+    border: 1px solid #9a9a9a;
+    border-radius: 3px;
+}
+
+.checkbox:checked + .checkmark:after {
+    content: "";
+    position: absolute;
+    display: block;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid #571dae;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.pr-like {
+    padding-top: 20px;
+    display: flex;
 }

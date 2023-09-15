@@ -98,3 +98,10 @@ class ProductFeature(models.Model):
     def __str__(self):
         return self.value
 
+
+class PeopleBuyAlso(models.Model):
+    product = models.ForeignKey(SexToys, related_name='product_buy', on_delete=models.CASCADE)
+    buy_also = models.ManyToManyField(SexToys)
+
+    def __str__(self):
+        return self.buy_also
