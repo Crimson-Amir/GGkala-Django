@@ -107,20 +107,58 @@
                             </div>
                         </div>
 
-                        <div class="people-also-buy">
-                            <span class="like-this">مناسب برای این کالا:</span>
-                            <div class="products-like">
-                                <div class="pr-like">
-                                    <label class="checkbox-container">
-                                        <input type="checkbox" class="checkbox" name="more" value="">
-                                        <span class="checkmark"></span>
-                                    </label>
+                        {% if also_like %}
+                            <div class="people-also-buy">
+                                <span class="like-this">مناسب برای این کالا:</span>
+                                <div class="products-like">
+                                    {% for obj in also_like %}
+                                        <div class="also-holder">
+                                            <label class="checkbox-container">
+                                                <input type="checkbox" class="checkbox" name="also" value="{{ obj.id }}">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <a href="{% url 'Products:detail' obj.slug %}" style="text-decoration:none;color:black;display: flex;align-items: center;">
+                                                <div class="also-buy-image-margin">
+                                                    <div class="also_buy_image">
+                                                        <img src="{{ obj.photo.url }}" alt="{{ obj.photo.url }}">
+                                                    </div>
+                                                </div>
+                                                <div class="also_like_title_star_price">
+                                                    <div class="also-title">
+                                                        {% fa_number obj.title %}
+                                                    </div>
+                                                    <div class="also-star">
+                                                        {% average_rate obj.review.all 'rtl' 'me-rate-21' %}
+                                                        <span class="count-also-buy-star">({% fa_number obj.review.count %})</span>
+                                                    </div>
+                                                    <div class="also-buy-price">
+                                                        <div class="price-text-detail-also-buy">
+                                                            {% fa_number obj.price|intcomma:False %}
+                                                        </div>
+                                                        <img class="price-photo-toman-detail-also-buy" src="{% static 'Category/images/toman.png' %}" alt="">
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    {% endfor %}
+                                    <div class="add_to_cart">
+                                        <div class="add-to-cart-holder">
+                                            <button type="submit" class="add-to-cart-button">
+                                                <span class="cart_text">اضافه کردن به سبد خرید</span>
+                                            </button>
+                                        </div>
+                                        <div class="save-item-holder">
+                                            <button type="submit" class="save-item-button">
+                                                <img class="save-item-heart" src="{% static 'Products/images/heart.png' %}" alt="heart">
+                                                <span class="save-item">ذخیره کالا</span>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        {% endif %}
 
                     </div>
-            <div style="height: 1000px;"> hello</div>
                 </div>
             </div>
         </div>
@@ -235,21 +273,21 @@
         document.getElementById('color-name').innerText = colorName;
     }
 
-    {#window.addEventListener('scroll', function () {#}
-    {#    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;#}
-    {#    const containerOffset = document.querySelector('.image-of-product').offsetTop;#}
-    {#    const image = document.querySelector('.left-side');#}
-    {#    const rightSide = document.querySelector('.right-side');#}
-    {#    const rightSideHeight = rightSide.offsetHeight;#}
-    {##}
-    {#    if (scrollTop > containerOffset && scrollTop < containerOffset + rightSideHeight) {#}
-    {#        image.style.transform = `translateY(${scrollTop - containerOffset}px)`;#}
-    {#    } else if (scrollTop >= containerOffset + rightSideHeight) {#}
-    {#        image.style.transform = `translateY(${rightSideHeight}px)`;#}
-    {#    } else {#}
-    {#        image.style.transform = 'translateY(0)';#}
-    {#    }#}
-    {#});#}
+    window.addEventListener('scroll', function () {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const containerOffset = document.querySelector('.image-of-product').offsetTop;
+        const image = document.querySelector('.left-side');
+        const rightSide = document.querySelector('.right-side');
+        const rightSideHeight = rightSide.offsetHeight;
+
+        if (scrollTop > containerOffset && scrollTop < containerOffset + rightSideHeight) {
+            image.style.transform = `translateY(${scrollTop - containerOffset}px)`;
+        } else if (scrollTop >= containerOffset + rightSideHeight) {
+            image.style.transform = `translateY(${rightSideHeight}px)`;
+        } else {
+            image.style.transform = 'translateY(0)';
+        }
+    });
 
 
 

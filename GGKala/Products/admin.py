@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import SexToys, Feature, ProductFeature, ProductImage
+from .models import SexToys, Feature, ProductFeature, ProductImage, Cart
 from . import models
 
 
@@ -43,7 +43,6 @@ class ProductImageAdmin(admin.ModelAdmin):
     search_fields = ('product', 'image')
 
 
-# @admin.register(PeopleBuyAlso)
-# class ProductImageAdmin(admin.ModelAdmin):
-#     list_display = ('product', 'image')
-#     search_fields = ('product', 'image')
+@admin.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    list_display = ('name',)

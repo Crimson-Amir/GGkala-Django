@@ -180,15 +180,25 @@
 
 .me-rate > label {
     float: right;
-    width: 23px;
     overflow: hidden;
     white-space: nowrap;
-    font-size: 25px;
     color: #571dae;
+    width: 23px;
+    font-size: 25px;
 }
 
 .me-rate-ltr > label {
     float: left;
+}
+
+.me-rate-25 > label {
+    width: 23px;
+    font-size: 25px;
+}
+
+.me-rate-21 > label {
+    width: 18px;
+    font-size: 21px;
 }
 
 .me-rate > label:before {

@@ -46,6 +46,8 @@ class SexToys(models.Model):
     review = models.ManyToManyField(ReviewModel, blank=True, related_name='review_related')
     real = models.IntegerField(blank=True, default=0)
     reason_for_return = models.TextField(verbose_name="دلیل قبول نشدن محصول", blank=True, help_text='اگر قرار است محصول را رد کنید، چند خطی در مورد دلیل آن بنویسید')
+    buy_also = models.ManyToManyField('self', related_name='people_buy_also', blank=True)
+
     object = MyManager()
 
     @property
@@ -99,9 +101,9 @@ class ProductFeature(models.Model):
         return self.value
 
 
-class PeopleBuyAlso(models.Model):
-    product = models.ForeignKey(SexToys, related_name='product_buy', on_delete=models.CASCADE)
-    buy_also = models.ManyToManyField(SexToys)
+class Cart(models.Model):
+    name = models.CharField(max_length=20, null=True, blank=True)
+    all_product = models.ManyToManyField(SexToys, related_name='carts')
 
     def __str__(self):
-        return self.buy_also
+        return str(self.name)
